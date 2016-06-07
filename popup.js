@@ -57,32 +57,54 @@ document.addEventListener('DOMContentLoaded', function() {
     //renderStatus('Performing Google Image search for ' + url);
     s = url.split("/");
     doms=['twitter.com', 'github.com', 'www.facebook.com']
-    if (doms.indexOf(s[2]) != -1 && s[3] != '') renderStatus('@' + s[3]);
+    if (doms.indexOf(s[2]) != -1 && s[3] != '') {
+
+      //AVATAR PIC SCRAPPER
+      chrome.tabs.executeScript(null, {
+        code: "var avatar =  document.getElementsByClassName('ProfileAvatar-image ')[0].src; avatar"
+      },
+        function (avatar) {
+          var img = document.createElement("img");
+          img.src = avatar;
+          img.style = 'left: 0; right: 0; position: absolute; z-index: 1; margin: auto; margin-top: 10px; margin-bottom: 10px; height: 150px; width: 150px; border-radius: 100px;'
+          var container = document.getElementById("container");
+          container.appendChild(img);
+        }
+      );
+
+      chrome.tabs.executeScript(null, {
+        code: "var header =  document.getElementsByClassName('ProfileCanopy-headerBg')[0].getElementsByTagName('img')[0].src; header"
+      },
+        function (header) {
+          var bg = document.createElement("img");
+          bg.src = header;
+          bg.style = 'margin-left: -100px; height: 180px;'+
+          '-webkit-filter: blur(5px);'
+
+          var bgcontainer = document.createElement("div");
+          bgcontainer.style = 'height: 170px; overflow: hidden;';
+          bgcontainer.appendChild(bg);
+
+          var container = document.getElementById("container");
+          container.style = 'height = 170px; overflow: hidden;'
+          container.appendChild(bgcontainer);
+        }
+      );
+      renderStatus('@' + s[3]);
+    }
+
+    // DINOSAUR
     else {
+      var text = document.createElement("div");
+      text.id = 'status';
+      document.body.appendChild(text);
       renderStatus('Crap! No user found');
+
       var img = document.createElement("img");
       img.src = '/trex.png';
       img.style = 'margin-left: 40px; margin-bottom: 10px;'
       document.body.appendChild(img);
     }
 
-
-
-    // getImageUrl(url, function(imageUrl, width, height) {
-    //   //renderStatus('Search term: ' + url + '\n' + 'Google image search result: ' + imageUrl);
-    //   //var imageResult = document.getElementById('image-result');
-    //   // Explicitly set the width/height to minimize the number of reflows. For
-    //   // a single image, this does not matter, but if you're going to embed
-    //   // multiple external images in your page, then the absence of width/height
-    //   // attributes causes the popup to resize multiple times.
-    //   imageResult.width = width;
-    //   imageResult.height = height;
-    //   imageResult.src = imageUrl;
-    //   imageResult.hidden = false;
-    // }, function(errorMessage) {
-    //   renderStatus('Cannot display image. ' + errorMessage);
-    // });
-
-    
   });
 });
