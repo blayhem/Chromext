@@ -61,36 +61,46 @@ document.addEventListener('DOMContentLoaded', function() {
 
       //AVATAR PIC SCRAPPER
       chrome.tabs.executeScript(null, {
-        code: "var avatar =  document.getElementsByClassName('ProfileAvatar-image ')[0].src; avatar"
+        code: "var alias = document.getElementsByClassName('ProfileHeaderCard-nameLink')[0].innerHTML;" +
+        "var header = document.getElementsByClassName('ProfileCanopy-headerBg')[0].getElementsByTagName('img')[0].src; " +
+        "var id = document.getElementsByClassName('u-linkComplex-target')[0].innerHTML;" +
+        "var avatar =  document.getElementsByClassName('ProfileAvatar-image ')[0].src;" + 
+        "var arrayobj = [avatar, header, alias, id]; arrayobj"
       },
-        function (avatar) {
-          var img = document.createElement("img");
-          img.src = avatar;
-          img.style = 'left: 0; right: 0; position: absolute; z-index: 1; margin: auto; margin-top: 10px; margin-bottom: 10px; height: 150px; width: 150px; border-radius: 100px;'
+        function (arrayobj) {
+          // AVATAR
+          var avatar = document.createElement("img");
+          avatar.src = arrayobj[0][0];
+          avatar.style = 'left: 0; right: 0; position: absolute; z-index: 1; margin: auto; margin-top: 10px; margin-bottom: 10px; height: 150px; width: 150px; border-radius: 100px;'
           var container = document.getElementById("container");
-          container.appendChild(img);
-        }
-      );
+          container.appendChild(avatar);
 
-      chrome.tabs.executeScript(null, {
-        code: "var header =  document.getElementsByClassName('ProfileCanopy-headerBg')[0].getElementsByTagName('img')[0].src; header"
-      },
-        function (header) {
-          var bg = document.createElement("img");
-          bg.src = header;
-          bg.style = 'margin-left: -100px; height: 180px;'+
-          '-webkit-filter: blur(5px);'
+          // HEADER
+          var header = document.createElement("img");
+          header.src = arrayobj[0][1];
+          header.style = 'margin-left: -100px; height: 180px;' +
+            '-webkit-filter: blur(5px);'
 
           var bgcontainer = document.createElement("div");
           bgcontainer.style = 'height: 170px; overflow: hidden;';
-          bgcontainer.appendChild(bg);
-
-          var container = document.getElementById("container");
-          container.style = 'height = 170px; overflow: hidden;'
+          bgcontainer.appendChild(header);
           container.appendChild(bgcontainer);
+
+          // ALIAS
+          var text = document.createElement("div");
+          document.body.appendChild(text);
+          var alias = document.createElement("h2");
+          alias.innerHTML = arrayobj[0][2];
+          text.appendChild(alias)
+
+          //ID
+          var id = document.createElement("p");
+          id.innerHTML = '@' + arrayobj[0][3];
+          text.appendChild(id)
         }
       );
-      renderStatus('@' + s[3]);
+
+      //renderStatus('@' + s[3]);
     }
 
     // DINOSAUR
@@ -102,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       var img = document.createElement("img");
       img.src = '/trex.png';
-      img.style = 'margin-left: 40px; margin-bottom: 10px;'
+      img.style = 'margin-bottom: 10px;'
       document.body.appendChild(img);
     }
 
