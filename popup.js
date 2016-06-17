@@ -65,7 +65,7 @@ function createFrame(){
 document.addEventListener('DOMContentLoaded', function() {
   getCurrentTabUrl(function(url) {
     s = url.split("/");
-    doms=['twitter.com', 'github.com', 'www.facebook.com']
+    doms=['twitter.com', 'github.com', 'www.facebook.com', 'www.linkedin.com']
     if (doms.indexOf(s[2]) != -1 && s[3] != '') {
 
       if (s[2] == 'twitter.com') {
@@ -119,6 +119,24 @@ document.addEventListener('DOMContentLoaded', function() {
           "var header = document.getElementsByClassName('coverPhotoImg')[0].src; " +
           "var avatar =  document.getElementsByClassName('profilePic')[0].src;" +
           //"alert(avatar);" +
+          "var arrayobj = [avatar, header, alias]; arrayobj"
+        },
+          function (arrayobj) {
+            avatar.src = arrayobj[0][0];
+            header.src = arrayobj[0][1];
+            header.style = 'margin-left: -100px; width: 400px; -webkit-filter: blur(5px);'
+            alias.innerHTML = arrayobj[0][2];
+
+          }
+        );
+      }
+      
+      else if (s[2] == 'www.linkedin.com') {
+        createFrame();
+        chrome.tabs.executeScript(null, {
+          code: "var alias = document.getElementsByClassName('full-name')[0].innerHTML;"+
+          "var header = document.getElementsByClassName('freemium-bg-image')[0].src; " +
+          "var avatar =  document.getElementById('control_gen_3').getElementsByTagName('img')[0].src;" +
           "var arrayobj = [avatar, header, alias]; arrayobj"
         },
           function (arrayobj) {
