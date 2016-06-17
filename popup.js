@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
   getCurrentTabUrl(function(url) {
     s = url.split("/");
     doms=['twitter.com', 'github.com', 'www.facebook.com']
-    if (doms.indexOf(s[2]) != -1 && s[3] != '') {
+    if (doms.indexOf(s[2]) != -1 && s[3] != '' && s[4] == '') {
       // FRAME CREATION
       var avatar = document.createElement("img");
       avatar.style = 'left: 0; right: 0; position: absolute; z-index: 1; margin: auto; margin-top: 10px; margin-bottom: 10px; height: 150px; width: 150px; border-radius: 100px;'
