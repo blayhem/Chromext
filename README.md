@@ -4,6 +4,8 @@ This is a chrome extension that does exactly what it says:
 
 > It extracts basic info from profiles in Twitter, Facebook or Github.
 
+![](https://raw.githubusercontent.com/blayhem/Chromext/master/example.gif)
+
 In order to install it:
 1. Download it and extract the .zip.
 2. Go to `chrome://extensions/`.
