@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
 
-  "name": "Basic Twitter scrapper",
-  "description": "This extension shows Twitter info from a profile. Not very useful yet.",
+  "name": "Basic Social Network scrapper",
+  "description": "This extension shows Twitter/FB/Github info from a profile. Not very useful yet.",
   "version": "0.1",
 
   "browser_action": {
