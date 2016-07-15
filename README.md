@@ -2,7 +2,7 @@
 
 This is a chrome extension that does exactly what it says:
 
-> It extracts basic info from profiles in Twitter, Facebook or Github.
+> It extracts basic info from profiles in Twitter, Facebook, LinkedIn or Github.
 
 ![](./example.gif)
 
